@@ -86,7 +86,7 @@
 	labelCC.text=[NSString stringWithFormat:@"CC No:64  -- %d",(Byte)sliderCC.value];
 	labelPKP.text=[NSString stringWithFormat:@"Poly Key Press No:13 -- %d",(Byte)sliderPKP.value];
 	labelCP.text=[NSString stringWithFormat:@"Ch Press --  %d",(Byte)sliderCP.value];
-	labelPB.text=[NSString stringWithFormat:@"PitchBend  --  %d",(UInt32)sliderPB.value];
+	labelPB.text=[NSString stringWithFormat:@"PitchBend  --  %d",(UInt16)sliderPB.value];
 
 }
 
@@ -162,7 +162,7 @@
 		[midi sendChPress:(Byte)sender.value channel:channel];
 	}
 	else if(sender==sliderPB){
-		[midi sendPitchBendData:(UInt32)sender.value channel:channel];
+		[midi sendPitchBendData:(UInt16)sender.value channel:channel];
 	}
 	
 }
@@ -170,7 +170,7 @@
 -(IBAction)pitchBendOffAction:(UISlider*)sender{
 	Byte channel=0;
 	[sender setValue:(float)0x3FFF/2 animated:YES];
-	[midi sendPitchBendData:(UInt32)sender.value channel:channel];
+	[midi sendPitchBendData:(UInt16)sender.value channel:channel];
 }
 
 
@@ -195,7 +195,7 @@
 	[self addLogMidiText:[NSString stringWithFormat:@"Rcieve ChannelPress press:%d  ch:%d\n",aPress,aChannel]];
 	labelCP.text=[NSString stringWithFormat:@"Ch Press --  %d",aPress];
 }
--(void)pitchBendData:(UInt32)aData channel:(Byte)aChannel{
+-(void)pitchBendData:(UInt16)aData channel:(Byte)aChannel{
 	[self addLogMidiText:[NSString stringWithFormat:@"Rcieve PitchBend:0x%04X  ch:%d\n",aData,aChannel]];
 	labelPB.text=[NSString stringWithFormat:@"PitchBend  --  0x%04X",aData];
 }

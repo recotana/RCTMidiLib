@@ -9,10 +9,10 @@
 
 #import <CoreMIDI/CoreMIDI.h>
 
-#define uint32_normalize(uint32_data) (uint32_data>0x3FFF) ? 0x3FFF : uint32_data;
-#define uint32_combine(byte_msb,byte_lsb) (UInt32)(byte_msb<<7)+byte_lsb
-#define msb_comvert(uint32_data) (Byte)((uint32_data & 0x3FFF) >> 7)
-#define lsb_comvert(uint32_data) (Byte)(uint32_data & 0x007F) 
+#define uint16_normalize(uint16_data) (uint16_data>0x3FFF) ? 0x3FFF : uint16_data;
+#define uint16_combine(byte_msb,byte_lsb) (UInt16)(byte_msb<<7)+byte_lsb
+#define msb_comvert(uint16_data) (Byte)((uint16_data & 0x3FFF) >> 7)
+#define lsb_comvert(uint16_data) (Byte)(uint16_data & 0x007F) 
 
 enum{
 	kMesNoteOFF			= 0x80,
@@ -36,7 +36,7 @@ enum{
 -(void)controlChangeWithNumber:(Byte)aNumber data:(Byte)aData channnel:(Byte)aChannel;
 -(void)polyKeyPressNoteNo:(Byte)aNoteNo press:(Byte)aPress channel:(Byte)aChannel;
 -(void)channelPress:(Byte)aPress channel:(Byte)aChannel;
--(void)pitchBendData:(UInt32)aData channel:(Byte)aChannel;
+-(void)pitchBendData:(UInt16)aData channel:(Byte)aChannel;
 
 /*
  midi send delegate method
@@ -127,7 +127,7 @@ enum{
  data: 0-127
  channel : 0-16
  */
--(void)sendPitchBendData:(UInt32)aData channel:(Byte)aChannel;
+-(void)sendPitchBendData:(UInt16)aData channel:(Byte)aChannel;
 
 
 

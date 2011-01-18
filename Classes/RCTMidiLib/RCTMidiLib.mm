@@ -209,7 +209,7 @@ const MIDIPacketList *sharedPacketList;
 	[self sendMidi:packet size:3 ];
 }
 
--(void)sendCC14No:(Byte)aCCNo data:(UInt32)aData channel:(Byte)aChannel {
+-(void)sendCC14No:(Byte)aCCNo data:(UInt16)aData channel:(Byte)aChannel {
 }
 
 -(void)sendPolyKeyPressNoteNo:(Byte)aNoteNo press:(Byte)aPress channel:(Byte)aChannel{
@@ -227,9 +227,9 @@ const MIDIPacketList *sharedPacketList;
 	[self sendMidi:packet size:2];
 }
 
--(void)sendPitchBendData:(UInt32)aData channel:(Byte)aChannel{
+-(void)sendPitchBendData:(UInt16)aData channel:(Byte)aChannel{
 	
-	UInt32 data=uint32_normalize(aData);
+	UInt16 data=uint16_normalize(aData);
 	
 	Byte packet[3];
 	packet[0] = kMesPitchBend + (aChannel&0x0F);
@@ -337,7 +337,7 @@ const MIDIPacketList *sharedPacketList;
 		}
 		else if (messsage == kMesPitchBend) {
 
-			UInt32 value=uint32_combine(packet->data[2],packet->data[1]);
+			UInt32 value=uint16_combine(packet->data[2],packet->data[1]);
 			if([self.delegate respondsToSelector:@selector(pitchBendData:channel:)]){
 				[self.delegate pitchBendData:value channel:channel];
 			//	[self addText:[NSString stringWithFormat:@"R CC: %X %X %X -- ",packet->data[0],packet->data[1],packet->data[2]]];
