@@ -299,12 +299,12 @@ const MIDIPacketList *sharedPacketList;
 	//MIDIPacketList先頭データを取得
     MIDIPacket *packet = (MIDIPacket *)&(sharedPacketList->packet[0]);
 	
-	Byte messsage = packet->data[0] & 0xF0;
-	Byte channel = packet->data[0] & 0x0F;
-	
 	
     for (UInt32 i = 0; i < sharedPacketList->numPackets; ++i)
     {
+		Byte messsage = packet->data[0] & 0xF0;
+		Byte channel = packet->data[0] & 0x0F;
+		
 		if ((messsage == kMesNoteON) && (packet->data[2] != 0)) {
 			if([self.delegate respondsToSelector:@selector(noteOnFlag:noteNo:velocity:channel:)]){
 				[self.delegate noteOnFlag:YES noteNo:packet->data[1] velocity:packet->data[2] channel:channel];
